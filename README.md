@@ -11,6 +11,16 @@ If you want to run the development server
 First, run: 
 
 ```bash
+npx prisma generate
+```
+
+Second, run:
+```bash
+npx prisma migrate dev
+```
+
+Second, run:
+```bash
 npm run dev
 # or
 yarn dev
