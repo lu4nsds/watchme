@@ -1,6 +1,6 @@
 "use client";
 import { signIn } from "next-auth/react";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import toast, {Toaster} from "react-hot-toast";
 import { useRouter } from "next/navigation"; 
@@ -12,10 +12,11 @@ const Login = () => {
   const router = useRouter();
 
   const onSubmit = async () => {
+
     const result = await signIn("credentials", {
       username: email,
       password: password,
-      redirect: false,
+      redirect: true,
       callbackUrl: "/Movies",
     });
 
@@ -29,8 +30,8 @@ const Login = () => {
         },
       } )
     } else {
-      toast.success('Successfully Login!', )
-      router.push(result?.url!!);
+      toast.success('Successfully Login!')
+      router.push('/Movies');
     }
   };
 
