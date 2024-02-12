@@ -1,4 +1,3 @@
-import { useSession } from "next-auth/react";
 import Signup from "./components/SignUp";
 import Image from 'next/image'
 
@@ -8,21 +7,6 @@ export type PageProps = {
 }
 
 export default function Home() {
-  // const { data: session } = useSession();
-  // if (session && session.user) {
-  //   return (
-  //     <main className="conteiner p-20 flex flex-col items-center justify-evenly lg:flex-row ">
-  //     <div>
-  //       <Image
-  //           src="/logo.png"
-  //           width={500}
-  //           height={500}
-  //           alt="Picture of the author"
-  //         />
-  //     </div> 
-  //   </main>
-  //   );
-  // }
   return (
     <main className="conteiner p-20 flex flex-col items-center justify-evenly lg:flex-row ">
       <div>
