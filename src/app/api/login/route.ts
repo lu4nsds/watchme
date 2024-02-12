@@ -1,7 +1,6 @@
 import { signJwtAccessToken } from "@/lib/jwt";
 import { prisma } from "@/lib/prisma";
 import * as bcrypt from 'bcrypt';
-import { json } from "stream/consumers";
 
 interface RequestBody {
     username: string;

@@ -1,4 +1,4 @@
-import NextAuth from "next-auth/next";
+import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
 const handler = NextAuth({
@@ -40,18 +40,21 @@ const handler = NextAuth({
             }
           })
     ],
+    pages:{
+      signIn: "/auth/signIn",
+    },
     session: {
       strategy: "jwt"
     },
     callbacks: {
-      async jwt({token, user}){
-        return({...token, ...user});
+      async jwt({ token, user }) {
+        return { ...token, ...user };
       },
-      async session({session, token}){
+      async session({ session, token, user }) {
         session.user = token as any;
         return session;
-      }
-    }
+      },
+    },
 })
 
-export {handler as GET, handler as POST};
+export {handler as GET, handler as POST, handler as DELETE, handler as PUT};
