@@ -2,31 +2,48 @@
 import { signIn } from "next-auth/react";
 import React, { useRef, useState } from "react";
 import Image from "next/image";
+import toast, {Toaster} from "react-hot-toast";
+import { useRouter } from "next/navigation"; 
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const router = useRouter();
 
   const onSubmit = async () => {
     const result = await signIn("credentials", {
       username: email,
       password: password,
-      redirect: true,
+      redirect: false,
       callbackUrl: "/Movies",
     });
+
+    if (result?.ok == false){
+      toast.error('User not Found.', {
+        style: {
+          border: '1px solid white',
+          backgroundColor: 'red',
+          padding: '8px',
+          color: 'white',
+        },
+      } )
+    } else {
+      toast.success('Successfully Login!', )
+      router.push(result?.url!!);
+    }
   };
 
   const handleLogin = () => {
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
-      setError('Email inválido');
+      setError('Invalid Email');
       return;
     }
 
     if (password.length < 6) {
-      setError('A senha deve ter pelo menos 6 caracteres');
+      setError('Password must be at least 6 characters');
       return;
     }
 
@@ -48,6 +65,7 @@ const Login = () => {
           />
       </div>
       <div className=" flex flex-col p-4 gap-4 w-96 h-full border rounded">
+        <Toaster/>
         {error && <p className="text-red-500 mb-4">{error}</p>}
         <input
           placeholder="Email"
